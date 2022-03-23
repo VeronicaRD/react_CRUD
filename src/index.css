@@ -78,6 +78,14 @@ body {
   align-items: center;
   justify-content: space-between;
 }
+
+.edit_con h3 {
+  text-align: center;
+  margin-top: 40px;
+
+}
+
+
 .add-form {
   margin-bottom: 40px;
 }

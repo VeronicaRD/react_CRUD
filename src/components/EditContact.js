@@ -1,36 +1,33 @@
 import { useState } from 'react'
 
 
-const EditContact = ({ onEdit }) => {
-    const [name, setName] = useState("anna")
-    const [company, setCompany] = useState("")
-    const [phone, setPhone] = useState("")
-  
 
+const EditContact = ({ onEdit }) => {
+  const [name, setName] = useState('')
+  const [company, setCompany] = useState('')
+  const [phone, setPhone] = useState('')
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+
+    if (!name) {
+      alert('Please add a Name')
+      return
+    }
+    if (!phone) {
+      alert('Please add a Number')
+      return
+    }
     
 
+    onEdit({ name, company, phone })
 
-    const onSubmit = (e) => {
-      e.preventDefault()
-  
-      if (!name) {
-        alert('Please add a Name')
-        return
-      }
-      if (!phone) {
-        alert('Please add a Number')
-        return
-      }
-      
-  
-      onEdit({ name, company, phone })
-  
-      setName('')
-      setCompany('')
-      setPhone('')
-      
-    }
-   
+    setName('')
+    setCompany('')
+    setPhone('')
+    
+  }
+ 
 
   return (
     <form className='add-form' onSubmit={onSubmit}>
@@ -65,7 +62,7 @@ const EditContact = ({ onEdit }) => {
       </div>
       
 
-      <input type='submit' value='Edit Contact' className='btn btn-block' />
+      <input type='submit' value='Save Contact' className='btn btn-block' />
     </form>
   )
 }

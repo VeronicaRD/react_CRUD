@@ -1,12 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import Header from "./components/Header";
 import Contacts from "./components/Contacts";
 import AddContact from "./components/AddContact";
 import EditContact from "./components/EditContact";
-//import EditContact from "./components/EditContact";
 
 
-const App = (contact) => {
+const App = () => {
   const [showAddContact, setShowAddContact] = useState(false);
   const [showEditContact, setShowEditContact] = useState(false);
   const [contacts, setContacts] = useState([]);
@@ -37,19 +36,38 @@ const App = (contact) => {
   // Add contact
   const addContact = (contact) => {
     const _id = Math.floor(Math.random() * 10000) + 1;
+    
 
     const newContact = { _id, ...contact };
+    
     setContacts([...contacts, newContact]);
   };
+
 
   //Edit Contact
-  const editContact = (_id, contact) => {
+   const editContact = (_id, contact) => {
+      console.log(_id);
+      console.log(contact);
     
-    
-    const newContact = { _id, ...contact };
-    setContacts([...contacts, newContact]);
+     //skapar en ny lista med kontakter
+     const updatedList = [...contacts];
+     //sätter index till det idnumret som kontakten vi trycker på
+     const index = contacts.findIndex((contact) => contact._id === _id);
+     
+     // Vi sätter kontakten till det matchande idnumret.
+     updatedList[index] = contact;
+     
   
+      
+      setContacts(updatedList); 
+      console.log(updatedList);
+   
   };
+        
+   
+
+    
+
 
   return (
     <div className="container">
@@ -61,14 +79,15 @@ const App = (contact) => {
       {showAddContact && <AddContact onAdd={addContact} />}
      
       {contacts.length > 0 ? (
+        <Fragment>  {/* gör så du kan lägga två child kompeneter tillsammans, som contact och editcontact */}
         <Contacts
           contacts={contacts}
           onDelete={deleteContact}
           onEdit={() => setShowEditContact(!showEditContact)}
           showEdit={showEditContact}
-          
-          
         />
+        
+        </Fragment>
       ) : (
         "No Contacts to show"
       )}
